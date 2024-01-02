@@ -2,10 +2,10 @@
 
 namespace Borah\KnowledgeBase\Traits;
 
-use Borah\KnowledgeBase\Client\KnowledgeBaseClient;
 use Borah\KnowledgeBase\DTO\KnowledgeInsertItem;
 use Borah\KnowledgeBase\Facades\KnowledgeBase;
 use Illuminate\Database\Eloquent\Model;
+
 use function Illuminate\Events\queueable;
 
 trait BelongsToKnowledgeBase
