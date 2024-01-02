@@ -1,8 +1,8 @@
 {
-    "name": "rulilg/knowledge-base-laravel",
+    "name": "borah/knowledge-base-laravel",
     "description": "Laravel wrapper for the Knowledge-Base API",
     "keywords": [
-        "RuliLG",
+        "Borah",
         "laravel",
         "knowledge-base-laravel"
     ],
@@ -34,13 +34,13 @@
     },
     "autoload": {
         "psr-4": {
-            "RuliLG\\KnowledgeBase\\": "src/",
-            "RuliLG\\KnowledgeBase\\Database\\Factories\\": "database/factories/"
+            "Borah\\KnowledgeBase\\": "src/",
+            "Borah\\KnowledgeBase\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RuliLG\\KnowledgeBase\\Tests\\": "tests/",
+            "Borah\\KnowledgeBase\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -72,10 +72,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "RuliLG\\KnowledgeBase\\KnowledgeBaseServiceProvider"
+                "Borah\\KnowledgeBase\\KnowledgeBaseServiceProvider"
             ],
             "aliases": {
-                "KnowledgeBase": "RuliLG\\KnowledgeBase\\Facades\\KnowledgeBase"
+                "KnowledgeBase": "Borah\\KnowledgeBase\\Facades\\KnowledgeBase"
             }
         }
     },

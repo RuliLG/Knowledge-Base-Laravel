@@ -1,8 +1,8 @@
 <?php
 
-namespace RuliLG\KnowledgeBase;
+namespace Borah\KnowledgeBase;
 
-use RuliLG\KnowledgeBase\Commands\KnowledgeBaseCommand;
+use Borah\KnowledgeBase\Commands\KnowledgeBaseCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -17,9 +17,7 @@ class KnowledgeBaseServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('knowledge-base-laravel')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_knowledge-base-laravel_table')
+            ->hasConfigFile('knowledge-base')
             ->hasCommand(KnowledgeBaseCommand::class);
     }
 }

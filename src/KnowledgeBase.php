@@ -1,6 +1,6 @@
 <?php
 
-namespace RuliLG\KnowledgeBase;
+namespace Borah\KnowledgeBase;
 
 class KnowledgeBase
 {

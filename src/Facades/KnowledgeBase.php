@@ -1,16 +1,16 @@
 <?php
 
-namespace RuliLG\KnowledgeBase\Facades;
+namespace Borah\KnowledgeBase\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \RuliLG\KnowledgeBase\KnowledgeBase
+ * @see \Borah\KnowledgeBase\KnowledgeBase
  */
 class KnowledgeBase extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \RuliLG\KnowledgeBase\KnowledgeBase::class;
+        return \Borah\KnowledgeBase\KnowledgeBase::class;
     }
 }

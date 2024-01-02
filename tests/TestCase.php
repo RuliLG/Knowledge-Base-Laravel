@@ -1,10 +1,10 @@
 <?php
 
-namespace RuliLG\KnowledgeBase\Tests;
+namespace Borah\KnowledgeBase\Tests;
 
+use Borah\KnowledgeBase\KnowledgeBaseServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use RuliLG\KnowledgeBase\KnowledgeBaseServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'RuliLG\\KnowledgeBase\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Borah\\KnowledgeBase\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
