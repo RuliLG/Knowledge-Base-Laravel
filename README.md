@@ -25,14 +25,43 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'connection' => [
+        'host' => env('KNOWLEDGE_BASE_HOST', 'http://localhost:8100'),
+    ],
 ];
 ```
 
+## Requirements
+
+This package is a wrapper for [Knowledge Base API](https://github.com/RuliLG/Knowledge-Base), so you need to have it running in order to use this package.
+
 ## Usage
 
+To use it, you need to add the `Borah\KnowledgeBase\Traits\HasKnowledgeBase` trait to the models you want to add to the Knowledge Base. Also, these models should implement the `Borah\KnowledgeBase\Contracts\Embeddable` interface.
+
+For example:
+
 ```php
-$knowledgeBase = new Borah\KnowledgeBase();
-echo $knowledgeBase->echoPhrase('Hello, RuliLG!');
+<?php
+
+namespace App\Models;
+
+use Borah\KnowledgeBase\Contracts\Embeddable;
+use Borah\KnowledgeBase\Traits\BelongsToKnowledgeBase;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Post extends Model implements Embeddable
+{
+    use HasFactory;
+    use BelongsToKnowledgeBase;
+
+    public function getEmbeddingsText(): string
+    {
+        return $this->content;
+    }
+}
 ```
 
 ## Testing
