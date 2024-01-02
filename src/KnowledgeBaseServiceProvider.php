@@ -2,9 +2,9 @@
 
 namespace RuliLG\KnowledgeBase;
 
+use RuliLG\KnowledgeBase\Commands\KnowledgeBaseCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use RuliLG\KnowledgeBase\Commands\KnowledgeBaseCommand;
 
 class KnowledgeBaseServiceProvider extends PackageServiceProvider
 {
