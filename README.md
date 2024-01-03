@@ -15,7 +15,15 @@ You can install the package via composer:
 composer require borah/knowledge-base-laravel
 ```
 
-You can publish the config file with:
+You must publish the migrations:
+
+```bash
+php artisan vendor:publish --tag="knowledge-base-laravel-migrations"
+```
+
+After the migration has been published you can run them using `php artisan migrate`.
+
+Also, if you want, you can publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="knowledge-base-laravel-config"
@@ -28,7 +36,11 @@ return [
     'connection' => [
         'host' => env('KNOWLEDGE_BASE_HOST', 'http://localhost:8100'),
     ],
+    'models' => [
+        'knowledge_base_id' => \Borah\KnowledgeBase\Models\KnowledgeBaseId::class,
+    ],
 ];
+
 ```
 
 ## Requirements
