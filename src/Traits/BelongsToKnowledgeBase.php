@@ -5,7 +5,7 @@ namespace Borah\KnowledgeBase\Traits;
 use Borah\KnowledgeBase\DTO\KnowledgeInsertItem;
 use Borah\KnowledgeBase\Facades\KnowledgeBase;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use function Illuminate\Events\queueable;
 
 trait BelongsToKnowledgeBase
@@ -25,13 +25,23 @@ trait BelongsToKnowledgeBase
         }));
     }
 
+    public function knowledgeBaseId(): MorphOne
+    {
+        return $this->morphOne(config('knowledge_base.models.knowledge_base_id'), 'model');
+    }
+
     public function knowledgeInsertItem(): KnowledgeInsertItem
     {
+        $knowledgeBaseId = $this->knowledgeBaseId ?? $this->knowledgeBaseId()->create();
+
         return new KnowledgeInsertItem(
-            id: class_basename($this).'_'.$this->getKey(),
+            id: $knowledgeBaseId->id,
             entity: class_basename($this),
             text: $this->getEmbeddingsText(),
-            payload: $this->toArray(),
+            payload: [
+                ...$this->toArray(),
+                'original_record_id' => $this->getKey(),
+            ],
         );
     }
 }

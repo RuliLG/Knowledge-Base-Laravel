@@ -11,7 +11,7 @@ class KnowledgeBaseClient
 
     public function __construct()
     {
-        $this->client = Http::baseUrl(config('knowledge-base.connection.host'))
+        $this->client = Http::baseUrl(config('knowledge_base.connection.host'))
             ->withHeaders([
                 'Accept' => 'application/json',
             ]);
