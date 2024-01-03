@@ -7,10 +7,10 @@ use Illuminate\Contracts\Support\Arrayable;
 class KnowledgeInsertItem implements Arrayable
 {
     public function __construct(
-        public mixed $id,
-        public string $entity,
-        public string $text,
-        public ?array $payload = null,
+        public readonly mixed $id,
+        public readonly string $entity,
+        public readonly string $text,
+        public readonly ?array $payload = null,
     ) {
 
     }
