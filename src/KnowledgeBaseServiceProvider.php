@@ -2,7 +2,7 @@
 
 namespace Borah\KnowledgeBase;
 
-use Borah\KnowledgeBase\Commands\KnowledgeBaseCommand;
+use Borah\KnowledgeBase\Commands\ReimportKnowledgeBaseCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,6 +18,6 @@ class KnowledgeBaseServiceProvider extends PackageServiceProvider
         $package
             ->name('knowledge-base-laravel')
             ->hasConfigFile('knowledge-base')
-            ->hasCommand(KnowledgeBaseCommand::class);
+            ->hasCommand(ReimportKnowledgeBaseCommand::class);
     }
 }

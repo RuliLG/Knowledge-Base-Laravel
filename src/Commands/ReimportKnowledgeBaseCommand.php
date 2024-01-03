@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use SplFileInfo;
 
-class KnowledgeBaseCommand extends Command
+class ReimportKnowledgeBaseCommand extends Command
 {
     public $signature = 'knowledge-base:reimport {model?}';
 
@@ -20,6 +20,7 @@ class KnowledgeBaseCommand extends Command
             ->filter(fn (string $model) => class_exists($model) && is_subclass_of($model, \Borah\KnowledgeBase\Contracts\Embeddable::class))
             ->when($this->argument('model'), fn ($collection) => $collection->filter(fn (string $model) => $model === $this->argument('model')))
             ->values();
+
         if ($models->isEmpty()) {
             $this->error('No models found');
 
