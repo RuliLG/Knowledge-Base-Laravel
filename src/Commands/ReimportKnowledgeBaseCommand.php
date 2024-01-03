@@ -30,7 +30,9 @@ class ReimportKnowledgeBaseCommand extends Command
         $models->each(function (string $model) {
             $this->info("Importing {$model}");
             $model::chunk(100, function ($records) {
-                KnowledgeBase::upsert($records);
+                dispatch(function () use ($records) {
+                    KnowledgeBase::upsert($records);
+                });
             });
         });
 
