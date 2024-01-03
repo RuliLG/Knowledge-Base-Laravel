@@ -2,7 +2,7 @@
 
 namespace Borah\KnowledgeBase\Commands;
 
-use Borah\KnowledgeBase\Client\KnowledgeBaseClient;
+use Borah\KnowledgeBase\Facades\KnowledgeBase;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use SplFileInfo;
@@ -29,12 +29,8 @@ class ReimportKnowledgeBaseCommand extends Command
 
         $models->each(function (string $model) {
             $this->info("Importing {$model}");
-            $client = new KnowledgeBaseClient();
-            $model::chunk(100, function ($records) use ($client) {
-                $items = $records
-                    ->map(fn ($item) => $item->knowledgeInsertItem())
-                    ->toArray();
-                $client->upsert($items);
+            $model::chunk(100, function ($records) {
+                KnowledgeBase::upsert($records);
             });
         });
 
