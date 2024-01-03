@@ -47,6 +47,7 @@ For example:
 namespace App\Models;
 
 use Borah\KnowledgeBase\Contracts\Embeddable;
+use Borah\KnowledgeBase\DTO\KnowledgeEmbeddingText;
 use Borah\KnowledgeBase\Traits\BelongsToKnowledgeBase;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -57,9 +58,14 @@ class Post extends Model implements Embeddable
     use HasFactory;
     use BelongsToKnowledgeBase;
 
-    public function getEmbeddingsText(): string
+    public function getEmbeddingsTexts(): KnowledgeEmbeddingText|array
     {
-        return $this->content;
+        return [
+            new KnowledgeEmbeddingText(
+                text: $this->content,
+                entity: class_basename($this),
+            ),
+        ];
     }
 }
 ```

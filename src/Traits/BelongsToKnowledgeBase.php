@@ -2,10 +2,12 @@
 
 namespace Borah\KnowledgeBase\Traits;
 
+use Borah\KnowledgeBase\DTO\KnowledgeEmbeddingText;
 use Borah\KnowledgeBase\DTO\KnowledgeInsertItem;
 use Borah\KnowledgeBase\Facades\KnowledgeBase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+
 use function Illuminate\Events\queueable;
 
 trait BelongsToKnowledgeBase
@@ -30,18 +32,27 @@ trait BelongsToKnowledgeBase
         return $this->morphOne(config('knowledge_base.models.knowledge_base_id'), 'model');
     }
 
-    public function knowledgeInsertItem(): KnowledgeInsertItem
+    /**
+     * @return KnowledgeInsertItem[]
+     */
+    public function knowledgeInsertItems(): array
     {
         $knowledgeBaseId = $this->knowledgeBaseId ?? $this->knowledgeBaseId()->create();
+        $texts = $this->getEmbeddingsTexts();
+        if (! is_array($texts)) {
+            $texts = [$texts];
+        }
 
-        return new KnowledgeInsertItem(
-            id: $knowledgeBaseId->id,
-            entity: class_basename($this),
-            text: $this->getEmbeddingsText(),
-            payload: [
-                ...$this->toArray(),
-                'original_record_id' => $this->getKey(),
-            ],
-        );
+        return collect($texts)
+            ->map(fn (KnowledgeEmbeddingText $text) => new KnowledgeInsertItem(
+                id: $knowledgeBaseId->id,
+                entity: $text->entity,
+                text: $text->text,
+                payload: [
+                    ...$this->toArray(),
+                    'original_record_id' => $this->getKey(),
+                ],
+            ))
+            ->toArray();
     }
 }
