@@ -1,7 +1,5 @@
 # Laravel wrapper for the Knowledge-Base API
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/borah/knowledge-base-laravel.svg?style=flat-square)](https://packagist.org/packages/borah/knowledge-base-laravel)
-
 This package is a Laravel wrapper for the [Knowledge Base API](https://github.com/RuliLG/Knowledge-Base). It will create and maintain a Knowledge Base for all the configured Eloquent models.
 
 ## Installation
