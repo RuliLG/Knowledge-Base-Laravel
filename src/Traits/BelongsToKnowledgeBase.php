@@ -6,6 +6,7 @@ use Borah\KnowledgeBase\DTO\KnowledgeInsertItem;
 use Borah\KnowledgeBase\Facades\KnowledgeBase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+
 use function Illuminate\Events\queueable;
 
 trait BelongsToKnowledgeBase
