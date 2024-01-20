@@ -3,6 +3,7 @@
 namespace Borah\KnowledgeBase;
 
 use Borah\KnowledgeBase\Client\KnowledgeBaseClient;
+use Borah\KnowledgeBase\DTO\KnowledgeBaseQueryResponse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -32,5 +33,12 @@ class KnowledgeBase
         $items = $model->knowledgeInsertItems();
 
         return $client->destroy($items[0]->id);
+    }
+
+    public function query(string $text, int $k = 10, ?array $entities = null, ?array $where = null): KnowledgeBaseQueryResponse
+    {
+        $client = new KnowledgeBaseClient();
+
+        return $client->query($text, $k, $entities, $where);
     }
 }
