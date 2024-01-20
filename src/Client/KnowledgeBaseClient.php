@@ -14,7 +14,8 @@ class KnowledgeBaseClient
         $this->client = Http::baseUrl(config('knowledge_base.connection.host'))
             ->withHeaders([
                 'Accept' => 'application/json',
-            ]);
+            ])
+            ->timeout(config('knowledge_base.connection.timeout'));
     }
 
     /**
