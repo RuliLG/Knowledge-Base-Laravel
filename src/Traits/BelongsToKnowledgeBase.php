@@ -8,7 +8,6 @@ use Borah\KnowledgeBase\DTO\KnowledgeInsertItem;
 use Borah\KnowledgeBase\Facades\KnowledgeBase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-
 use function Illuminate\Events\queueable;
 
 trait BelongsToKnowledgeBase
@@ -57,8 +56,8 @@ trait BelongsToKnowledgeBase
             ->toArray();
     }
 
-    public function searchInKnowledgeBase(string $query, int $k = 10, ?array $where = null): KnowledgeBaseQueryResponse
+    public static function searchInKnowledgeBase(string $query, int $k = 10, ?array $where = null): KnowledgeBaseQueryResponse
     {
-        return KnowledgeBase::query($query, $k, class_basename($this), $where);
+        return KnowledgeBase::query($query, $k, [class_basename(static::class)], $where);
     }
 }
