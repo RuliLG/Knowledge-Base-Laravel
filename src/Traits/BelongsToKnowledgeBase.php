@@ -2,6 +2,7 @@
 
 namespace Borah\KnowledgeBase\Traits;
 
+use Borah\KnowledgeBase\DTO\KnowledgeBaseQueryResponse;
 use Borah\KnowledgeBase\DTO\KnowledgeEmbeddingText;
 use Borah\KnowledgeBase\DTO\KnowledgeInsertItem;
 use Borah\KnowledgeBase\Facades\KnowledgeBase;
@@ -54,5 +55,10 @@ trait BelongsToKnowledgeBase
                 ],
             ))
             ->toArray();
+    }
+
+    public function searchInKnowledgeBase(string $query, int $k = 10, ?array $where = null): KnowledgeBaseQueryResponse
+    {
+        return KnowledgeBase::query($query, $k, class_basename($this), $where);
     }
 }

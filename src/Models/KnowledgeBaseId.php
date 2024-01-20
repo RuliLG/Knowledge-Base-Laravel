@@ -16,4 +16,9 @@ class KnowledgeBaseId extends Model
     ];
 
     public $timestamps = false;
+
+    public function model()
+    {
+        return $this->morphTo();
+    }
 }
