@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('knowledge_base_ids', function (Blueprint $table) {
+        Schema::create('knowledge_base_chunks', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->unsignedInteger('order');
+            $table->mediumText('text');
             $table->morphs('model');
         });
     }

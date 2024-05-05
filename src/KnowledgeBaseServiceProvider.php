@@ -18,7 +18,7 @@ class KnowledgeBaseServiceProvider extends PackageServiceProvider
         $package
             ->name('knowledge-base-laravel')
             ->hasConfigFile('knowledge_base')
-            ->hasMigration('2024_01_01_000000_create_knowledge_base_ids_table')
+            ->hasMigration('2024_01_01_000000_create_knowledge_base_chunks_table')
             ->hasCommand(ReimportKnowledgeBaseCommand::class);
     }
 }

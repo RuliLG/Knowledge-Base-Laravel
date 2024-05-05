@@ -2,6 +2,7 @@
 
 namespace Borah\KnowledgeBase\Client;
 
+use Borah\KnowledgeBase\DTO\KnowledgeBaseChunkItem;
 use Borah\KnowledgeBase\DTO\KnowledgeBaseQueryResponse;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
@@ -27,6 +28,7 @@ class KnowledgeBaseClient
      */
     public function upsert(array $data): bool
     {
+        logger()->debug('[KnowledgeBaseClient] Upserting data', $data);
         return $this->client->post('/insert', [
             'data' => $data,
         ])
@@ -42,6 +44,7 @@ class KnowledgeBaseClient
      */
     public function destroy(mixed $id): bool
     {
+        logger()->debug('[KnowledgeBaseClient] Deleting record', ['id' => $id]);
         return $this->client->delete('/delete/'.$id)
             ->throw()
             ->json('success') ?: false;
@@ -57,6 +60,12 @@ class KnowledgeBaseClient
      */
     public function query(string $text, int $k = 10, ?array $entities = null, ?array $where = null): KnowledgeBaseQueryResponse
     {
+        logger()->debug('[KnowledgeBaseClient] Querying knowledge base', [
+            'text' => $text,
+            'k' => $k,
+            'entities' => $entities,
+            'where' => $where,
+        ]);
         $params = [
             'query' => $text,
             'k' => $k,
@@ -75,5 +84,29 @@ class KnowledgeBaseClient
             ->json();
 
         return KnowledgeBaseQueryResponse::from($response);
+    }
+
+    /**
+     * Generates chunks of text for the selected records.
+     *
+     * @param array<\Borah\KnowledgeBase\DTO\KnowledgeBaseChunkItem> $records
+     *
+     * @return array<\Borah\KnowledgeBase\DTO\KnowledgeBaseChunkItem>
+     */
+    public function chunk(array $records, ?int $chunkSize = null, ?int $chunkOverlap = null): array
+    {
+        logger()->debug('[KnowledgeBaseClient] Chunking data');
+        $response = $this->client->post('/chunk', [
+            'data' => $records,
+            'chunk_size' => $chunkSize ?? config('knowledge_base.chunking.size'),
+            'chunk_overlap' => $chunkOverlap ?? config('knowledge_base.chunking.overlap'),
+        ])
+            ->throw()
+            ->collect('chunks');
+
+        return $response->map(fn (array $item) => new KnowledgeBaseChunkItem(
+            id: $item['id'],
+            text: $item['text'],
+        ))->all();
     }
 }

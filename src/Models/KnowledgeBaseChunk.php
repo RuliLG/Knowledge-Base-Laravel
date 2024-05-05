@@ -5,7 +5,7 @@ namespace Borah\KnowledgeBase\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class KnowledgeBaseId extends Model
+class KnowledgeBaseChunk extends Model
 {
     use HasUuids;
 
@@ -13,6 +13,7 @@ class KnowledgeBaseId extends Model
         'id',
         'model_type',
         'model_id',
+        'text',
     ];
 
     public $timestamps = false;

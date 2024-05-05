@@ -2,7 +2,7 @@
 
 namespace Borah\KnowledgeBase\DTO;
 
-use Borah\KnowledgeBase\Models\KnowledgeBaseId;
+use Borah\KnowledgeBase\Models\KnowledgeBaseChunk;
 use Illuminate\Database\Eloquent\Collection;
 
 class KnowledgeBaseQueryResponse
@@ -25,7 +25,7 @@ class KnowledgeBaseQueryResponse
     public function models(): Collection
     {
         $ids = collect($this->results)->pluck('id');
-        $intermediateRecords = KnowledgeBaseId::query()
+        $intermediateRecords = KnowledgeBaseChunk::query()
             ->with('model')
             ->whereIn('id', $ids)
             ->get();
@@ -33,6 +33,8 @@ class KnowledgeBaseQueryResponse
         // sort the records in the same order as the results
         $intermediateRecords = $intermediateRecords->sortBy(fn ($record) => array_search($record->id, $ids->toArray()));
 
-        return $intermediateRecords->map(fn ($record) => $record->model);
+        return $intermediateRecords
+            ->map(fn ($record) => $record->model)
+            ->unique();
     }
 }

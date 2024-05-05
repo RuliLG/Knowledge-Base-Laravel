@@ -8,7 +8,6 @@ class KnowledgeBaseQueryResponseItem
         public readonly mixed $id,
         public readonly string $entity,
         public readonly string $text,
-        public readonly float $vectorScore,
         public readonly float $rerankingScore,
         public readonly ?array $payload = null,
     ) {
@@ -21,7 +20,6 @@ class KnowledgeBaseQueryResponseItem
             id: $result['id'],
             entity: $result['entity'],
             text: $result['text'],
-            vectorScore: $result['vector_score'],
             rerankingScore: $result['reranking_score'],
             payload: $result['payload'] ?? null,
         );
