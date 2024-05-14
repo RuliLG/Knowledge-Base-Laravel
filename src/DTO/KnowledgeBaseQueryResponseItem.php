@@ -20,7 +20,7 @@ class KnowledgeBaseQueryResponseItem
             id: $result['id'],
             entity: $result['entity'],
             text: $result['text'],
-            rerankingScore: $result['reranking_score'],
+            rerankingScore: $result['score'],
             payload: $result['payload'] ?? null,
         );
     }
