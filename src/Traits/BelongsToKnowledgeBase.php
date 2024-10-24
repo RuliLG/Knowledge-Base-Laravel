@@ -70,7 +70,7 @@ trait BelongsToKnowledgeBase
                 text: $text->text,
                 payload: [
                     ...$this->knowledgeBasePayload(),
-                    'original_record_id' => $this->$key,
+                    'original_record_id' => $key,
                 ],
             );
         }
