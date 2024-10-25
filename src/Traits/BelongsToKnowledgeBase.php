@@ -13,6 +13,8 @@ use function Illuminate\Events\queueable;
 
 trait BelongsToKnowledgeBase
 {
+    protected string $knowledgeBaseKeyAttribute = null; 
+
     public static function bootBelongsToKnowledgeBase()
     {
         static::created(queueable(function (Model $model) {
@@ -60,13 +62,15 @@ trait BelongsToKnowledgeBase
                 $chunk->update(['text' => $text->text]);
             }
 
+            $key = $this->knowledgeBaseKeyAttribute ? $this->{$this->knowledgeBaseKeyAttribute} : $this->getKey();
+
             $items[] = new KnowledgeInsertItem(
                 id: $chunk->id,
                 entity: $text->entity,
                 text: $text->text,
                 payload: [
                     ...$this->knowledgeBasePayload(),
-                    'original_record_id' => $this->getKey(),
+                    'original_record_id' => $key,
                 ],
             );
         }
